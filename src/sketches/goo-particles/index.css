@@ -1,0 +1,27 @@
+html,
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background-color: white;
+    filter: contrast(10);
+}
+
+.container {
+    width: 20vh;
+    height: 20vh;
+}
+
+.particle {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    will-change: transform;
+    background-color: black;
+    border-radius: 100%;
+    filter: blur(10px);
+}

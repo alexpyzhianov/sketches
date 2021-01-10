@@ -14,8 +14,9 @@ function main() {
 
     const system = new ParticleSystem({
         container,
-        birthRate: 10,
-        lifetimeRange: [100, 200],
+        maxCount: 40,
+        birthRate: 1,
+        lifetimeRange: { min: 40, max: 70 },
     });
 
     function draw() {
