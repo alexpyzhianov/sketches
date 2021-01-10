@@ -1,0 +1,13 @@
+* {
+    box-sizing: border-box;
+    will-change: transform;
+}
+
+body {
+    margin: 0;
+}
+
+.cube-face {
+    border: 1px solid black;
+    background-color: white;
+}

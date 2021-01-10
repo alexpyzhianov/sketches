@@ -1,30 +1,32 @@
 const path = require("path");
 const fs = require("fs");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { getIndexTemplate } = require("./index.html");
 
 const SKETCH_PATH = path.resolve(__dirname, "./src/sketches");
+const sketches = fs.readdirSync(SKETCH_PATH);
 
-const sketchFiles = fs
-    .readdirSync(SKETCH_PATH)
-    .map((filePath) => ({ name: filePath.split(".")[0], filePath }));
-
-const sketchEntries = sketchFiles.reduce(
-    (acc, { name, filePath }) => ({
-        ...acc,
-        [name]: path.join(SKETCH_PATH, filePath),
+const sketchEntries = sketches.reduce(
+    (entries, sketch) => ({
+        ...entries,
+        [sketch]: path.join(SKETCH_PATH, sketch, "index.ts"),
     }),
     {},
 );
 
-const sketchHtmlFiles = sketchFiles.map(
-    ({ name }) =>
+const sketchHtmlFiles = sketches.map(
+    (sketch) =>
         new HtmlWebpackPlugin({
-            filename: `${name}.html`,
-            title: `${name} sketch`,
-            chunks: [name],
+            filename: `${sketch}.html`,
+            title: `${sketch} sketch`,
+            chunks: [sketch],
         }),
 );
 
+/**
+ * Gathers everything from /sketches, creates an html file for each
+ * and an index page to navigate between them
+ */
 module.exports = {
     mode: "development",
     devtool: "inline-source-map",
@@ -45,10 +47,21 @@ module.exports = {
                 use: "ts-loader",
                 exclude: /node_modules/,
             },
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader"],
+            },
         ],
     },
     resolve: {
         extensions: [".tsx", ".ts", ".js"],
     },
-    plugins: [...sketchHtmlFiles],
+    plugins: [
+        ...sketchHtmlFiles,
+        new HtmlWebpackPlugin({
+            filename: "index.html",
+            templateContent: getIndexTemplate(sketches),
+            chunks: [],
+        }),
+    ],
 };
