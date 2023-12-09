@@ -1,0 +1,17 @@
+{
+  "name": "sketches",
+  "version": "1.0.0",
+  "description": "code sketches",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": "20.9.0"
+  },
+  "devDependencies": {
+    "@types/d3-shape": "^3.1.6"
+  },
+  "dependencies": {
+    "d3-shape": "^3.2.0"
+  }
+}
