@@ -18,7 +18,7 @@ float rayMarch(vec3 rayOrigin, vec3 rayDirection) {
     float currentDistance = 0.0f;
     for(int i = 0; i < MAX_STEPS; i++) {
         vec3 rayTip = rayOrigin + rayDirection * currentDistance;
-        float newDistance = sphereSDF(rayTip, vec3(0.0f, 0.0f, 0.0f), 1.0f);
+        float newDistance = sphereSDF(rayTip, vec3(0.0f, 0.0f, 0.0f), 3.0f);
         currentDistance += newDistance;
         if(newDistance < SURFACE_DIST || currentDistance > MAX_DIST) {
             break;
@@ -31,13 +31,11 @@ void main() {
     vec2 uv = (gl_FragCoord.xy - 0.5f * vec2(u_width, u_height)) / u_height;
 
     // Camera
-    vec3 rayOrigin = vec3(0.0f, 0.0f, 3.0f);
+    vec3 rayOrigin = vec3(0.0f, 0.0f, 10.0f);
     vec3 rayDirection = normalize(vec3(uv, -1.0f));
 
     float dist = rayMarch(rayOrigin, rayDirection);
-    if(dist < 100.0f) {
-        FragColor = vec4(1.0f, 0.5f, 0.0f, 1.0f); // Orange color for the sphere
-    } else {
-        FragColor = vec4(0.0f, 0.0f, 0.0f, 1.0f); // Black background
-    }
+    dist /= 10.0f;
+
+    FragColor = vec4(vec3(dist), 1.0f); // Orange color for the sphere
 }

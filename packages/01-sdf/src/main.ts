@@ -1,7 +1,6 @@
-import "./style.css";
 import { setupWebGL2Canvas, createWebGL2Program } from "utils";
-import vertexShaderSource from "./main.vert?raw";
-import fragmentShaderSource from "./main.frag?raw";
+import vertexShaderSource from "./main.vert";
+import fragmentShaderSource from "./main.frag";
 
 const WIDTH = 800;
 const HEIGHT = 600;
