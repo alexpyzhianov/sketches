@@ -18,3 +18,18 @@ export const setup2DCanvas = (width = 800, height = 600) => {
 
   return { ctx, canvas };
 };
+
+export const setupWebGL2Canvas = (width = 800, height = 600) => {
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+
+  document.body.appendChild(canvas);
+
+  const gl = canvas.getContext("webgl2");
+  if (!gl) {
+    return { error: new Error("Could not get WebGL2 context") };
+  }
+
+  return { gl, canvas };
+};
