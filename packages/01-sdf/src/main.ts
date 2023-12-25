@@ -35,6 +35,8 @@ const positionLocation = gl.getAttribLocation(program, "a_position");
 gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
 gl.enableVertexAttribArray(positionLocation);
 
+const startTime = Date.now();
+
 // Render loop
 function render() {
   if (!gl || !program) {
@@ -50,6 +52,11 @@ function render() {
   const heightLocation = gl.getUniformLocation(program, "u_height");
   gl.uniform1f(widthLocation, WIDTH);
   gl.uniform1f(heightLocation, HEIGHT);
+
+  // Add uniform with time
+  const timeLocation = gl.getUniformLocation(program, "u_time");
+  const elapsedTime = (Date.now() - startTime) / 1000; // convert to seconds
+  gl.uniform1f(timeLocation, elapsedTime);
 
   gl.bindVertexArray(vao);
   gl.drawArrays(gl.TRIANGLES, 0, 6);
