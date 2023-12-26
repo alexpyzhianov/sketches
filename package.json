@@ -9,12 +9,15 @@
     "node": "20.9.0"
   },
   "devDependencies": {
+    "@tweakpane/core": "^2.0.3",
     "@types/d3-shape": "^3.1.6",
     "vite-plugin-glsl": "^1.2.1"
   },
   "dependencies": {
     "d3-shape": "^3.2.0",
+    "gsap": "^3.12.4",
     "lil-gui": "^0.19.1",
-    "three": "^0.159.0"
+    "three": "^0.159.0",
+    "tweakpane": "^4.0.3"
   }
 }
