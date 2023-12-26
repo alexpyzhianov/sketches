@@ -30,7 +30,7 @@ export const createShaderProgram = (
 ) => {
   const vert = createShader(gl, gl.VERTEX_SHADER, shaders.vertexShaderSource);
   if ("error" in vert) {
-    return vert;
+    return { error: vert.error, program: undefined };
   }
 
   const frag = createShader(
@@ -39,7 +39,7 @@ export const createShaderProgram = (
     shaders.fragmentShaderSource
   );
   if ("error" in frag) {
-    return frag;
+    return { error: frag.error, program: undefined };
   }
 
   const program = gl.createProgram();
@@ -53,11 +53,11 @@ export const createShaderProgram = (
   gl.linkProgram(program);
 
   if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-    return { error: new Error("Failed to link program") };
+    return { error: new Error("Failed to link program"), program: undefined };
   }
 
   gl.deleteShader(vert.shader);
   gl.deleteShader(frag.shader);
 
-  return program;
+  return { program };
 };
